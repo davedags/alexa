@@ -1,0 +1,14 @@
+{
+  "name": "tuner",
+  "version": "1.0.0",
+  "description": "Guitar Tuner",
+  "main": "index.js",
+  "author": "David D'Agostino",
+  "license": "ISC",
+  "alexa": {
+    "applicationId": "amzn1.ask.skill.a4ce9317-3c13-4170-abeb-4553a75b7c76"
+  },
+  "dependencies": {
+    "alexa-app": "^2.1.0"
+  }
+}
