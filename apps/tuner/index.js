@@ -10,11 +10,15 @@ app.launch(function(req, res) {
     res.say(prompt).reprompt(prompt).shouldEndSession(false);
 });
            
-app.intent('TuneIntent', '',
+app.intent('TuneIntent', {
+    'slots': {
+        'Note':  'LIST_OF_NOTES'
+    },
+    'utterances':  ['{play|tune} {|the} note {-|Note}']
+},
  function (req, res) {
      var spokenNote;
      var note;
-
      if (req.slot('Note')) {
          spokenNote = req.slot('Note').toLowerCase().substring(0,1);
          note = notes[spokenNote];
@@ -30,7 +34,9 @@ app.intent('TuneIntent', '',
  }
 );
 
-app.intent('TuneAllIntent', '',
+app.intent('TuneAllIntent', {
+    'utterances':  ['{play|tune} all {|strings|notes}']
+ },
  function (req, res) {
      res.say('Let\'s Tune.  <audio src="https://dags.io/tune/all-notes.mp3" /> ' ).send();
  }
@@ -42,11 +48,13 @@ app.intent('AMAZON.HelpIntent', '',
  }
 );
 
-app.intent('AMAZON.StopIntent', '',
- function (req, res) {
-     res.say('Goodbye.').send();
- }
-);
+var exitFunction = function(req, res) {
+    res.say('Goodbye.').send();
+};
+
+app.intent('AMAZON.StopIntent', '', exitFunction);
+app.intent('AMAZON.CancelIntent', '', exitFunction);
+
 
 app.post = function(req, res, type, exception) {
     if (exception) {
