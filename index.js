@@ -15,8 +15,8 @@ var appServer = function(config) {
 
   var defaultOptions = {
     log: true,
-    debug: true,
-    verify: false,
+    debug: false,
+    verify: true,
     port: process.env.port || 8080,
     httpEnabled: true,
     httpsEnabled: false,
