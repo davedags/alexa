@@ -1,4 +1,6 @@
 'use strict';
+require('log-timestamp');
+
 var Alexa = require('alexa-app');
 var APP_ID = "amzn1.ask.skill.a4ce9317-3c13-4170-abeb-4553a75b7c76";
 var app = new Alexa.app('tuner');
@@ -6,7 +8,7 @@ var notes = require('./notes');
 
 app.launch(function(req, res) {
     var prompt = 'Time to tune.  What note should we tune.';
-    console.log("launch skill");
+    console.log("Launching Skill");
     res.say(prompt).reprompt(prompt).shouldEndSession(false);
 });
            
@@ -17,6 +19,7 @@ app.intent('TuneIntent', {
     'utterances':  ['{play|tune} {|the} note {-|Note}']
 },
  function (req, res) {
+     console.log("Tune Intent");
      var spokenNote;
      var note;
      if (req.slot('Note')) {
@@ -38,6 +41,7 @@ app.intent('TuneAllIntent', {
     'utterances':  ['{play|tune} all {|strings|notes}']
  },
  function (req, res) {
+     console.log("Tune All Intent");
      res.say('Let\'s Tune.  <audio src="https://dags.io/tune/all-notes.mp3" /> ' ).send();
  }
 );
