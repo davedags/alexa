@@ -99,6 +99,7 @@ var appServer = function(config) {
       }
 
       var app;
+
       try {
         app = require(main);
       } catch (e) {
@@ -155,6 +156,9 @@ var appServer = function(config) {
   self.start = function() {
     self.express = express();
 
+    var helmet = require('helmet');
+    self.express.use(helmet());
+      
     self.express.set('views', path.join(__dirname, 'views'));
     self.express.set('view engine', 'ejs');
     self.express.use(express.static(path.join(__dirname, 'views')));
